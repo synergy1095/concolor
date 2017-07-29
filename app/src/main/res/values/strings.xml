@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">concolor</string>
+    <string name="app_name">Color Picker</string>
+    <string name="HSV">HSV</string>
+    <string name="RGB">RGB</string>
 </resources>
