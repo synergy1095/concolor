@@ -1,18 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.jykin.concolor.MainActivity">
 
-    <TextView
+
+<!--
+
+There is a better way to structure this without having everything in one activity. Created this on the fly as a sample.
+
+-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/radioGroup"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
 
-</android.support.constraint.ConstraintLayout>
+        <RadioButton
+            android:id="@+id/HSV_Button"
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:textColor="@color/text_color"
+            android:checked="true"
+            android:text="@string/HSV" />
+
+        <RadioButton
+            android:id="@+id/RGB_Button"
+            android:layout_width="110dp"
+            android:textColor="@color/text_color"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/radioGroup"
+            android:layout_toRightOf="@+id/radioGroup"
+            android:layout_weight="1"
+            android:text="@string/RGB" />
+
+    </RadioGroup>
+
+    <com.rarepebble.colorpicker.ColorPickerView
+        android:id="@+id/colorPicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:colorpicker_showAlpha="true"
+        app:colorpicker_showHex="false"
+        app:colorpicker_showPreview="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+    </com.rarepebble.colorpicker.ColorPickerView>
+
+    <Button
+        android:id="@+id/color_webview"
+        android:text="@string/preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/colorPicker"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>
