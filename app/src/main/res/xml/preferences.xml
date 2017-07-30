@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.rarepebble.colorpicker.ColorPreference
+        android:key="myOptionalColor"
+        android:title="Optional"
+        app:colorpicker_selectNoneButtonText="No Color"
+        app:colorpicker_noneSelectedSummaryText="No Color"
+        />
+</PreferenceScreen>
