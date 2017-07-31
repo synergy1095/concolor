@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ColorPickerView picker = (ColorPickerView)findViewById(R.id.colorPicker);
+       ColorPickerView picker = (ColorPickerView)findViewById(R.id.colorPicker);
         picker.setColor(0xffff0000);
     }
 

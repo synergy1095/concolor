@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <RadioGroup
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_gravity="center_horizontal"
+      android:id="@+id/radioGroup"
+      android:layout_marginTop="8dp"
+      android:layout_marginRight="8dp"
+      android:layout_marginLeft="8dp">
+
+    <RadioButton
+        android:id="@+id/HSV_Button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:checked="true"
+        android:text="@string/HSV"
+        android:textColor="@color/text_color" />
+
+    <RadioButton
+        android:id="@+id/RGB_Button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="@string/RGB"
+        android:textColor="@color/text_color" />
+
+  </RadioGroup>
+
+  <Button
+      android:id="@+id/color_webview"
+      android:text="@string/preview"
+      android:layout_width="88dp"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:layout_marginRight="8dp"
+      android:layout_marginLeft="8dp" />
+
+
+</android.support.constraint.ConstraintLayout>
