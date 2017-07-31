@@ -14,18 +14,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.rarepebble.colorpicker.ColorPickerView;
-
-import org.w3c.dom.Text;
+/**
+ *
+ */
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class MainActivity extends AppCompatActivity
     implements HSV.OnDialogCloseListener {
     private ActionBar actionBar;
     private int primary, darkPrimary, accent;
-    private Button buttonHSV;
+    private Button buttonHSV, buttonPreviewApp, buttonPreviewWeb;
+    private ImageButton ibPrimary, ibAccent, ibDark;
 
     private TextView et_a, et_r, et_g, et_b;
     private static final String TAG = "mainactivity";
@@ -35,25 +37,25 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        ColorPickerView picker = (ColorPickerView)findViewById(R.id.colorPicker);
-//        picker.setColor(0xffff0000);
-
+        //get ui elements
         actionBar = getSupportActionBar();
         primary = ContextCompat.getColor(this, R.color.colorPrimary);
         darkPrimary = ContextCompat.getColor(this, R.color.colorPrimaryDark);
         accent = ContextCompat.getColor(this, R.color.colorAccent);
-
+        //argb edit text views
         et_a = (TextView) findViewById(R.id.et_a);
         et_r = (TextView) findViewById(R.id.et_r);
         et_g = (TextView) findViewById(R.id.et_g);
         et_b = (TextView) findViewById(R.id.et_b);
-
+        //hsv button
         buttonHSV = (Button) findViewById(R.id.HSV_Button);
         buttonHSV.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
+                //click listener for hsv button
                 //user can only input non decimal numbers
+                //try catch still required for empty edittext case
                 int a, r, g, b;
                 try {
                     a = Integer.parseInt(et_a.getText().toString());
@@ -76,11 +78,26 @@ public class MainActivity extends AppCompatActivity
                 hsv.show(fm, "hsv_fragment");
             }
         });
+        //preview buttons
+        buttonPreviewApp = (Button) findViewById(R.id.b_preview_app);
+        buttonPreviewWeb = (Button) findViewById(R.id.b_preview_web);
+        //color image buttons
+        ibPrimary = (ImageButton) findViewById(R.id.ib_primary);
+        ibDark = (ImageButton) findViewById(R.id.ib_primary_dark);
+        ibAccent = (ImageButton) findViewById(R.id.ib_accent);
     }
 
 
+    @SuppressWarnings("PointlessBitwiseExpression")
     @Override
     public void closeDialog(int color) {
+        String hexValue = String.format("#%08X", (0xFFFFFFFF & color));
+        setEditText(color);
+        Log.d(TAG, hexValue);
+    }
+
+    //helper method to set edit text boxes to arbg numbers
+    private void setEditText(int color){
         int a, r, g, b;
         a = Color.alpha(color);
         r = Color.red(color);
@@ -91,8 +108,5 @@ public class MainActivity extends AppCompatActivity
         et_r.setText(Integer.toString(r));
         et_g.setText(Integer.toString(g));
         et_b.setText(Integer.toString(b));
-
-        String hexValue = String.format("#%08X", (0xFFFFFFFF & color));
-        Log.d(TAG, hexValue);
     }
 }
