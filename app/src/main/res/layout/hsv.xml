@@ -10,36 +10,39 @@
         android:id="@+id/button_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="55dp"
-        android:layout_marginTop="16dp"
         android:text="@string/button_hsv_cancel"
         android:textColor="@color/main_activity_bg"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/colorPicker" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
         android:id="@+id/button_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginRight="55dp"
-        android:layout_marginTop="16dp"
         android:text="@string/button_hsv_ok"
         android:textColor="@color/main_activity_bg"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/colorPicker" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <com.rarepebble.colorpicker.ColorPickerView
         android:id="@+id/colorPicker"
         android:layout_width="284dp"
         android:layout_height="416dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
         android:layout_marginTop="0dp"
         app:colorpicker_showAlpha="true"
         app:colorpicker_showHex="true"
         app:colorpicker_showPreview="true"
-        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintBottom_toTopOf="@+id/button_cancel"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.516" />
 </android.support.constraint.ConstraintLayout>

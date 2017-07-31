@@ -1,6 +1,7 @@
 package com.example.jykin.concolor;
 
 import android.graphics.Color;
+import android.nfc.Tag;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity
     private Button buttonHSV;
 
     private TextView et_a, et_r, et_g, et_b;
+    private static final String TAG = "mainactivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,5 +91,8 @@ public class MainActivity extends AppCompatActivity
         et_r.setText(Integer.toString(r));
         et_g.setText(Integer.toString(g));
         et_b.setText(Integer.toString(b));
+
+        String hexValue = String.format("#%08X", (0xFFFFFFFF & color));
+        Log.d(TAG, hexValue);
     }
 }
