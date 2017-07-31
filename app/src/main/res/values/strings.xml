@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name">Color Picker</string>
-    <string name="HSV">HSV</string>
+    <string name="HSV">Select color using HSV</string>
     <string name="RGB">RGB</string>
-    <string name="preview">Color Preview</string>
+
+    <string name="button_preview_web">Preview in Website</string>
+    <string name="button_preview_app">Preview in App</string>
+    <string name="button_hsv_cancel">Cancel</string>
+    <string name="button_hsv_ok">Ok</string>
+
+    <string name="ARGB">ARGB Values:</string>
+    <string name="color_slots">Color Slots:</string>
+    <string name="instructions">Enter values, then click color slot to save.</string>
+
+    <string name="primary">Primary</string>
+    <string name="primaryDark">Dark</string>
+    <string name="accent">Accent</string>
+    <string name="text">Text</string>
 </resources>
