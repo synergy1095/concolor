@@ -37,10 +37,10 @@
         android:layout_width="368dp"
         android:layout_height="230dp"
         android:layout_weight="1"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="8dp"
         app:srcCompat="@drawable/checker_background"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/b_open_image"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
@@ -50,7 +50,6 @@
         android:layout_weight="1"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="110dp"
-        android:text="@string/primary"
         app:layout_constraintTop_toBottomOf="@+id/iv_image"
         app:layout_constraintLeft_toLeftOf="parent" />
 

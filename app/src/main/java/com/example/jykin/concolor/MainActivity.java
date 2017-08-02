@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 //click listener for hsv button
                 FragmentManager fm = getSupportFragmentManager();
-                HSV hsv = HSV.newInstance(getColor());
+                HSV hsv = HSV.newInstance(argbToColor());
                 hsv.show(fm, "hsv_fragment");
             }
         });
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 //click listener for palette button
                 FragmentManager fm = getSupportFragmentManager();
-                PaletteFragment palette = PaletteFragment.newInstance(getColor());
+                PaletteFragment palette = PaletteFragment.newInstance(argbToColor());
                 palette.show(fm, "palette_fragment");
             }
         });
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity
         et_b.setText(Integer.toString(b));
     }
 
-    public int getColor(){
+    public int argbToColor(){
         //user can only input non decimal numbers
         //try catch still required for empty edittext case
         int a, r, g, b;
