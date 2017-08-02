@@ -3,13 +3,11 @@ package com.example.jykin.concolor;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -92,14 +89,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                int a, r, g, b;
-                a = Integer.parseInt(et_a.getText().toString());
+                int r, g, b;
                 r = Integer.parseInt(et_r.getText().toString());
                 g = Integer.parseInt(et_g.getText().toString());
                 b = Integer.parseInt(et_b.getText().toString());
-                int color = Color.argb(a, r, g, b);
+                int color = Color.rgb(r, g, b);
 
-                String hexValue = String.format("%08X", (0xFFFFFF & color));
+                String hexValue = String.format("%06X", (0xFFFFFF & color));
                 URL url = WebPreview.makeURL(hexValue);
 
                 Uri newsPage = Uri.parse(url.toString());
