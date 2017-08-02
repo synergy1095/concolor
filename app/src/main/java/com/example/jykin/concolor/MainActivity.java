@@ -23,10 +23,10 @@ import android.widget.TextView;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class MainActivity extends AppCompatActivity
-    implements HSV.OnDialogCloseListener {
+    implements HSV.OnDialogCloseListener, PaletteFragment.OnDialogCloseListener {
     private ActionBar actionBar;
     private int primary, darkPrimary, accent;
-    private Button buttonHSV, buttonPreviewApp, buttonPreviewWeb;
+    private Button buttonHSV, buttonPalette, buttonPreviewApp, buttonPreviewWeb;
     private ImageButton ibPrimary, ibAccent, ibDark;
 
     private TextView et_a, et_r, et_g, et_b;
@@ -54,28 +54,21 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 //click listener for hsv button
-                //user can only input non decimal numbers
-                //try catch still required for empty edittext case
-                int a, r, g, b;
-                try {
-                    a = Integer.parseInt(et_a.getText().toString());
-                    r = Integer.parseInt(et_r.getText().toString());
-                    g = Integer.parseInt(et_g.getText().toString());
-                    b = Integer.parseInt(et_b.getText().toString());
-                } catch (NumberFormatException e) {
-                    a = 255;
-                    r = g = b = 0;
-                }
-
-                a = (a > 255 || a < 0) ? 255 : a;
-                r = (r > 255 || r < 0) ? 255 : r;
-                g = (g > 255 || g < 0) ? 255 : g;
-                b = (b > 255 || b < 0) ? 255 : b;
-
-                int color = Color.argb(a, r, g, b);
                 FragmentManager fm = getSupportFragmentManager();
-                HSV hsv = HSV.newInstance(color);
+                HSV hsv = HSV.newInstance(getColor());
                 hsv.show(fm, "hsv_fragment");
+            }
+        });
+        //image button
+        buttonPalette = (Button) findViewById(R.id.palette_button);
+        buttonPalette.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                //click listener for palette button
+                FragmentManager fm = getSupportFragmentManager();
+                PaletteFragment palette = PaletteFragment.newInstance(getColor());
+                palette.show(fm, "palette_fragment");
             }
         });
         //preview buttons
@@ -108,5 +101,27 @@ public class MainActivity extends AppCompatActivity
         et_r.setText(Integer.toString(r));
         et_g.setText(Integer.toString(g));
         et_b.setText(Integer.toString(b));
+    }
+
+    public int getColor(){
+        //user can only input non decimal numbers
+        //try catch still required for empty edittext case
+        int a, r, g, b;
+        try {
+            a = Integer.parseInt(et_a.getText().toString());
+            r = Integer.parseInt(et_r.getText().toString());
+            g = Integer.parseInt(et_g.getText().toString());
+            b = Integer.parseInt(et_b.getText().toString());
+        } catch (NumberFormatException e) {
+            a = 255;
+            r = g = b = 255;
+        }
+
+        a = (a > 255 || a < 0) ? 255 : a;
+        r = (r > 255 || r < 0) ? 255 : r;
+        g = (g > 255 || g < 0) ? 255 : g;
+        b = (b > 255 || b < 0) ? 255 : b;
+
+        return Color.argb(a, r, g, b);
     }
 }
