@@ -1,6 +1,8 @@
 package com.example.jykin.concolor;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -16,6 +18,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import java.io.IOException;
+import java.net.URL;
 
 /**
  *
@@ -80,7 +85,31 @@ public class MainActivity extends AppCompatActivity
         });
         //preview buttons
         buttonPreviewApp = (Button) findViewById(R.id.b_preview_app);
+        //Web Preview
         buttonPreviewWeb = (Button) findViewById(R.id.b_preview_web);
+        buttonPreviewWeb.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                int a, r, g, b;
+                a = Integer.parseInt(et_a.getText().toString());
+                r = Integer.parseInt(et_r.getText().toString());
+                g = Integer.parseInt(et_g.getText().toString());
+                b = Integer.parseInt(et_b.getText().toString());
+                int color = Color.argb(a, r, g, b);
+
+                String hexValue = String.format("%08X", (0xFFFFFF & color));
+                URL url = WebPreview.makeURL(hexValue);
+
+                Uri newsPage = Uri.parse(url.toString());
+                Intent intent = new Intent(Intent.ACTION_VIEW, newsPage);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
+
         //color image buttons
         ibPrimary = (ImageButton) findViewById(R.id.ib_primary);
         ibDark = (ImageButton) findViewById(R.id.ib_primary_dark);
@@ -109,4 +138,6 @@ public class MainActivity extends AppCompatActivity
         et_g.setText(Integer.toString(g));
         et_b.setText(Integer.toString(b));
     }
+
+
 }
