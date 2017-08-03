@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.io.File;
 import java.net.URL;
 
 /**
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity
     private int primary, darkPrimary, accent;
     private Button buttonHSV, buttonPalette, buttonPreviewApp, buttonPreviewWeb;
     private ImageButton ibPrimary, ibAccent, ibDark;
+
 
     private TextView et_a, et_r, et_g, et_b;
     private static final String TAG = "mainactivity";
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity
                 palette.show(fm, "palette_fragment");
             }
         });
-        //preview buttons
+        //preview button
         buttonPreviewApp = (Button) findViewById(R.id.b_preview_app);
         //Web Preview
         buttonPreviewWeb = (Button) findViewById(R.id.b_preview_web);
