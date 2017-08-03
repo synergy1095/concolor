@@ -26,7 +26,7 @@ import java.net.URL;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class MainActivity extends AppCompatActivity
-    implements HSV.OnDialogCloseListener, PaletteFragment.OnDialogCloseListener, View.OnLongClickListener {
+    implements HSV.OnDialogCloseListener, PaletteFragment.OnDialogCloseListener, View.OnLongClickListener, View.OnClickListener {
     private ActionBar actionBar;
     private int primary, darkPrimary, accent;
     private Button buttonHSV, buttonPalette, buttonPreviewApp, buttonPreviewWeb;
@@ -55,54 +55,24 @@ public class MainActivity extends AppCompatActivity
 
         //hsv button
         buttonHSV = (Button) findViewById(R.id.HSV_Button);
-        buttonHSV.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View view) {
-                //click listener for hsv button
-                FragmentManager fm = getSupportFragmentManager();
-                HSV hsv = HSV.newInstance(argbToColor());
-                hsv.show(fm, "hsv_fragment");
-            }
-        });
         //image button
         buttonPalette = (Button) findViewById(R.id.palette_button);
-        buttonPalette.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View view) {
-                //click listener for palette button
-                FragmentManager fm = getSupportFragmentManager();
-                PaletteFragment palette = PaletteFragment.newInstance(argbToColor());
-                palette.show(fm, "palette_fragment");
-            }
-        });
         //preview buttons
         buttonPreviewApp = (Button) findViewById(R.id.b_preview_app);
 
         //Web Preview
         buttonPreviewWeb = (Button) findViewById(R.id.b_preview_web);
-        buttonPreviewWeb.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-
-                String hexValue = String.format("%06X", (0xFFFFFF & argbToColor()));
-                URL url = WebPreview.makeURL(hexValue);
-
-                Uri newsPage = Uri.parse(url.toString());
-                Intent intent = new Intent(Intent.ACTION_VIEW, newsPage);
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                }
-            }
-        });
 
         //color image buttons
         ibPrimary = (ImageButton) findViewById(R.id.ib_primary);
         ibPrimary.setOnLongClickListener(this);
+
         ibDark = (ImageButton) findViewById(R.id.ib_primary_dark);
         ibDark.setOnLongClickListener(this);
+        
         ibAccent = (ImageButton) findViewById(R.id.ib_accent);
         ibAccent.setOnLongClickListener(this);
     }
@@ -204,6 +174,42 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+
+            case R.id.HSV_Button:
+                //click listener for hsv button
+                FragmentManager fmHSV = getSupportFragmentManager();
+                HSV hsv = HSV.newInstance(argbToColor());
+                hsv.show(fmHSV, "hsv_fragment");
+                break;
+
+            case  R.id.palette_button:
+
+                //click listener for palette button
+                FragmentManager fmPalette = getSupportFragmentManager();
+                PaletteFragment palette = PaletteFragment.newInstance(argbToColor());
+                palette.show(fmPalette, "palette_fragment");
+                break;
+
+            case R.id.b_preview_app:
+                break;
+
+            case R.id.b_preview_web:
+
+                String hexValue = String.format("%06X", (0xFFFFFF & argbToColor()));
+                URL url = WebPreview.makeURL(hexValue);
+
+                Uri newsPage = Uri.parse(url.toString());
+                Intent intent = new Intent(Intent.ACTION_VIEW, newsPage);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+                break;
+
+        }
+    }
 
     //Long Click on imagebutton displays color rgb currently in it
     @Override
