@@ -1,12 +1,16 @@
 <resources>
     <string name="app_name">Color Picker</string>
     <string name="HSV">Select color using HSV</string>
+    <string name="palette">Select color using image</string>
     <string name="RGB">RGB</string>
 
     <string name="button_preview_web">Preview in Website</string>
     <string name="button_preview_app">Preview in App</string>
     <string name="button_hsv_cancel">Cancel</string>
     <string name="button_hsv_ok">Ok</string>
+
+    <string name="open">Open</string>
+    <string name="camera">Camera</string>
 
     <string name="ARGB">ARGB Values:</string>
     <string name="color_slots">Color Slots:</string>

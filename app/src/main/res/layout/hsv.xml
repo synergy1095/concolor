@@ -32,8 +32,8 @@
 
     <com.rarepebble.colorpicker.ColorPickerView
         android:id="@+id/colorPicker"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="439dp"
         android:layout_marginBottom="16dp"
         app:colorpicker_showAlpha="true"
         app:colorpicker_showHex="true"
