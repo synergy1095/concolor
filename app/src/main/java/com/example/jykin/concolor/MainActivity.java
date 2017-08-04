@@ -28,7 +28,7 @@ import java.net.URL;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class MainActivity extends AppCompatActivity
-    implements HSV.OnDialogCloseListener, PaletteFragment.OnDialogCloseListener, View.OnLongClickListener, View.OnClickListener {
+        implements HSV.OnDialogCloseListener, PaletteFragment.OnDialogCloseListener, View.OnLongClickListener, View.OnClickListener {
     private ActionBar actionBar;
     private int primary, darkPrimary, accent;
     private Button buttonHSV, buttonPalette, buttonPreviewApp, buttonPreviewWeb;
@@ -58,24 +58,19 @@ public class MainActivity extends AppCompatActivity
 
         //hsv button
         buttonHSV = (Button) findViewById(R.id.HSV_Button);
+        buttonHSV.setOnClickListener(this);
 
         //image button
         buttonPalette = (Button) findViewById(R.id.palette_button);
+        buttonPalette.setOnClickListener(this);
 
-        @Override
-        public void onClick(View view) {
-                //click listener for palette button
-                FragmentManager fm = getSupportFragmentManager();
-                PaletteFragment palette = PaletteFragment.newInstance(argbToColor());
-                palette.show(fm, "palette_fragment");
-            }
-        });
         //preview button
         buttonPreviewApp = (Button) findViewById(R.id.b_preview_app);
+        buttonPreviewApp.setOnClickListener(this);
 
         //Web Preview
         buttonPreviewWeb = (Button) findViewById(R.id.b_preview_web);
-
+        buttonPreviewApp.setOnClickListener(this);
 
         //color image buttons
         ibPrimary = (ImageButton) findViewById(R.id.ib_primary);
@@ -83,7 +78,7 @@ public class MainActivity extends AppCompatActivity
 
         ibDark = (ImageButton) findViewById(R.id.ib_primary_dark);
         ibDark.setOnLongClickListener(this);
-        
+
         ibAccent = (ImageButton) findViewById(R.id.ib_accent);
         ibAccent.setOnLongClickListener(this);
     }

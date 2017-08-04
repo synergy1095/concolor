@@ -2,9 +2,7 @@
 
 
 <!--
-
 There is a better way to structure this without having everything in one activity. Created this on the fly as a sample.
-
 -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
