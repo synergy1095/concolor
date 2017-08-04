@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
@@ -18,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.io.File;
 import java.net.URL;
 
 
@@ -92,7 +90,7 @@ public class MainActivity extends AppCompatActivity
 
         sPrimary = color;
         sDarkPrimary = rgbToDarkColor();
-        sAccent = colorToAccent(color);
+        sAccent = GenerateColors.colorToAccent(color);
 
         ibPrimary.setBackgroundColor(sPrimary);
         ibDark.setBackgroundColor(sDarkPrimary);
@@ -154,18 +152,6 @@ public class MainActivity extends AppCompatActivity
         return Color.rgb(r, g, b);
     }
 
-    //Changes the hue of the color to get accent. 
-    public int colorToAccent(int color) {
-        float[] hsv = new float[3];
-        color = AccentBlackWhite.checkColor(color);
-
-        Color.RGBToHSV(Color.red(color), Color.green(color),
-                Color.blue(color), hsv);
-        hsv[0] = (hsv[0] + 180) % 360;
-
-        return Color.HSVToColor(hsv);
-    }
-
     //Saves color and displays on imagebutton when clicked
     public void ibColorsClick(View view){
         if (view.getId() == R.id.ib_primary) {
@@ -206,7 +192,7 @@ public class MainActivity extends AppCompatActivity
 
                 String prim = String.format("%06X", (0xFFFFFF & argbToColor()));
                 String dark = String.format("%06X", (0xFFFFFF & rgbToDarkColor()));
-                String acce = String.format("%06X", (0xFFFFFF & colorToAccent(argbToColor())));
+                String acce = String.format("%06X", (0xFFFFFF & GenerateColors.colorToAccent(argbToColor())));
                 URL url = WebPreview.makeURL(prim,dark,acce);
 
                 Uri testPage = Uri.parse(url.toString());
