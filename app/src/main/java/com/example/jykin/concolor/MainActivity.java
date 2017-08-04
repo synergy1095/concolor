@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity
         return Color.rgb(r, g, b);
     }
 
-    //Changes the hue of the color to get accent. Currently does not work if primary is white or black
+    //Changes the hue of the color to get accent. 
     public int colorToAccent(int color) {
         float[] hsv = new float[3];
         color = AccentBlackWhite.checkColor(color);
@@ -162,15 +162,6 @@ public class MainActivity extends AppCompatActivity
         Color.RGBToHSV(Color.red(color), Color.green(color),
                 Color.blue(color), hsv);
         hsv[0] = (hsv[0] + 180) % 360;
-        
-         //if color is black or white, the accent would be the opposite.
-        if(hsv[2] == 1.0) {
-            hsv[2] = 0;
-            return Color.HSVToColor(hsv);
-        }else if(hsv[2] == 0){
-            hsv[2] = 1;
-            return Color.HSVToColor(hsv);
-        }
 
         return Color.HSVToColor(hsv);
     }
