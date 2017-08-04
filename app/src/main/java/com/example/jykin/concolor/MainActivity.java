@@ -58,16 +58,19 @@ public class MainActivity extends AppCompatActivity
 
         //hsv button
         buttonHSV = (Button) findViewById(R.id.HSV_Button);
+        buttonHSV.setOnClickListener(this);
 
         //image button
         buttonPalette = (Button) findViewById(R.id.palette_button);
+        buttonPalette.setOnClickListener(this);
 
         //preview button
         buttonPreviewApp = (Button) findViewById(R.id.b_preview_app);
+        buttonPreviewApp.setOnClickListener(this);
 
         //Web Preview
         buttonPreviewWeb = (Button) findViewById(R.id.b_preview_web);
-
+        buttonPreviewApp.setOnClickListener(this);
 
         //color image buttons
         ibPrimary = (ImageButton) findViewById(R.id.ib_primary);
