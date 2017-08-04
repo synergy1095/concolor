@@ -12,7 +12,7 @@
     <string name="open">Open</string>
     <string name="camera">Camera</string>
 
-    <string name="ARGB">ARGB Values:</string>
+    <string name="ARGB">RGB Values:</string>
     <string name="color_slots">Color Slots:</string>
     <string name="instructions">Enter values, then click color slot to save.</string>
 
