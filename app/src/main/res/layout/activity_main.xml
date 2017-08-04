@@ -119,11 +119,11 @@ There is a better way to structure this without having everything in one activit
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
 
-    <SeekBar
+    <!--<SeekBar
         android:id="@+id/et_r_seek"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:max="255"/>
+        android:max="255"/>-->
 
     <EditText
         android:id="@+id/et_g"
@@ -197,7 +197,7 @@ There is a better way to structure this without having everything in one activit
         android:text="@string/ARGB"
         android:textColor="@color/colorEditText"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/et_a"
+        app:layout_constraintBottom_toTopOf="@+id/et_r"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         android:layout_marginTop="8dp"

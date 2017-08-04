@@ -202,11 +202,13 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.b_preview_web:
 
-                String hexValue = String.format("%06X", (0xFFFFFF & argbToColor()));
-                URL url = WebPreview.makeURL(hexValue);
+                String prim = String.format("%06X", (0xFFFFFF & argbToColor()));
+                String dark = String.format("%06X", (0xFFFFFF & rgbToDarkColor()));
+                String acce = String.format("%06X", (0xFFFFFF & colorToAccent(argbToColor())));
+                URL url = WebPreview.makeURL(prim,dark,acce);
 
-                Uri newsPage = Uri.parse(url.toString());
-                Intent intent = new Intent(Intent.ACTION_VIEW, newsPage);
+                Uri testPage = Uri.parse(url.toString());
+                Intent intent = new Intent(Intent.ACTION_VIEW, testPage);
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 }
