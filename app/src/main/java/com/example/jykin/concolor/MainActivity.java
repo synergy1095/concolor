@@ -162,6 +162,15 @@ public class MainActivity extends AppCompatActivity
         Color.RGBToHSV(Color.red(color), Color.green(color),
                 Color.blue(color), hsv);
         hsv[0] = (hsv[0] + 180) % 360;
+        
+         //if color is black or white, the accent would be the opposite.
+        if(hsv[2] == 1.0) {
+            hsv[2] = 0;
+            return Color.HSVToColor(hsv);
+        }else if(hsv[2] == 0){
+            hsv[2] = 1;
+            return Color.HSVToColor(hsv);
+        }
 
         return Color.HSVToColor(hsv);
     }
