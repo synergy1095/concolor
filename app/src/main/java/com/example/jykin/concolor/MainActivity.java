@@ -62,14 +62,6 @@ public class MainActivity extends AppCompatActivity
         //image button
         buttonPalette = (Button) findViewById(R.id.palette_button);
 
-        @Override
-        public void onClick(View view) {
-                //click listener for palette button
-                FragmentManager fm = getSupportFragmentManager();
-                PaletteFragment palette = PaletteFragment.newInstance(argbToColor());
-                palette.show(fm, "palette_fragment");
-            }
-        });
         //preview button
         buttonPreviewApp = (Button) findViewById(R.id.b_preview_app);
 
