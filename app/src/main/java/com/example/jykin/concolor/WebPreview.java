@@ -7,7 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by Syntax Mike on 8/1/2017.
+ * Created by Syntax Mike.
  */
 
 
@@ -22,6 +22,24 @@ public class WebPreview {
         URL url = null;
 
         try {
+            url = new URL(uri.toString());
+        }catch(MalformedURLException e){
+            e.printStackTrace();
+        }
+
+        return url;
+    }
+
+    // newer version to account for color scheme full.
+    public static URL makeURL(String primCol, String darkCol, String acceCol){
+        Uri uri = Uri.parse(BASIC_HTML_PAGE).buildUpon()
+                .appendQueryParameter("prim",primCol)
+                .appendQueryParameter("dark",darkCol)
+                .appendQueryParameter("acce",acceCol).build();
+
+        URL url = null;
+
+        try{
             url = new URL(uri.toString());
         }catch(MalformedURLException e){
             e.printStackTrace();

@@ -28,7 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by seppc_laptop on 7/31/2017.
+ * Created by seppc_laptop.
  * http://android-er.blogspot.com/2015/09/extract-prominent-colors-from-image.html
  */
 
