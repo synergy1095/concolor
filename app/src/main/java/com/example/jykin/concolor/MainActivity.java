@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
     private ImageButton ibPrimary, ibAccent, ibDark;
 
 
-    private TextView et_a, et_r, et_g, et_b;
+    private TextView et_r, et_g, et_b;
     private static final String TAG = "mainactivity";
 
     @Override
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         darkPrimary = ContextCompat.getColor(this, R.color.colorPrimaryDark);
         accent = ContextCompat.getColor(this, R.color.colorAccent);
         //argb edit text views
-        et_a = (TextView) findViewById(R.id.et_a);
+        // et_a = (TextView) findViewById(R.id.et_a);
         et_r = (TextView) findViewById(R.id.et_r);
         et_g = (TextView) findViewById(R.id.et_g);
         et_b = (TextView) findViewById(R.id.et_b);
@@ -119,13 +119,13 @@ public class MainActivity extends AppCompatActivity
 
     //helper method to set edit text boxes to arbg numbers
     private void setEditText(int color){
-        int a, r, g, b;
-        a = Color.alpha(color);
+        int r, g, b;
+        //a = 255;
         r = Color.red(color);
         g = Color.green(color);
         b = Color.blue(color);
 
-        et_a.setText(Integer.toString(a));
+        // et_a.setText(Integer.toString(a));
         et_r.setText(Integer.toString(r));
         et_g.setText(Integer.toString(g));
         et_b.setText(Integer.toString(b));
@@ -133,22 +133,20 @@ public class MainActivity extends AppCompatActivity
     public int argbToColor(){
         //user can only input non decimal numbers
         //try catch still required for empty edittext case
-        int a, r, g, b;
+        int r, g, b;
         try {
-            a = Integer.parseInt(et_a.getText().toString());
+            // a = Integer.parseInt(et_a.getText().toString());
             r = Integer.parseInt(et_r.getText().toString());
             g = Integer.parseInt(et_g.getText().toString());
             b = Integer.parseInt(et_b.getText().toString());
         } catch (NumberFormatException e) {
-            a = 255;
             r = g = b = 255;
         }
 
-        a = (a > 255 || a < 0) ? 255 : a;
         r = (r > 255 || r < 0) ? 255 : r;
         g = (g > 255 || g < 0) ? 255 : g;
         b = (b > 255 || b < 0) ? 255 : b;
 
-        return Color.argb(a, r, g, b);
+        return Color.argb(255, r, g, b);
     }
 }
