@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
 
         //Web Preview
         buttonPreviewWeb = (Button) findViewById(R.id.b_preview_web);
-        buttonPreviewApp.setOnClickListener(this);
+        buttonPreviewWeb.setOnClickListener(this);
 
         //color image buttons
         ibPrimary = (ImageButton) findViewById(R.id.ib_primary);
@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("PointlessBitwiseExpression")
     @Override
     public void closeDialog(int color) {
+        if(color == -1) return;
         String hexValue = String.format("#%08X", (0xFFFFFFFF & color));
         setEditText(color);
 
@@ -198,17 +199,18 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.b_preview_app:
+                Log.d(TAG,"App Preview");
                 break;
 
             case R.id.b_preview_web:
-
+                Log.d(TAG,"Web Preview");
                 String prim = String.format("%06X", (0xFFFFFF & argbToColor()));
                 String dark = String.format("%06X", (0xFFFFFF & rgbToDarkColor()));
                 String acce = String.format("%06X", (0xFFFFFF & colorToAccent(argbToColor())));
                 URL url = WebPreview.makeURL(prim,dark,acce);
+                Log.d(TAG,url.toString());
 
-                Uri testPage = Uri.parse(url.toString());
-                Intent intent = new Intent(Intent.ACTION_VIEW, testPage);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url.toString()));
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 }
