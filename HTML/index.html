@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- For Mike who is hosting the webpage -->
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		<title>Preview Page</title>
+	</head>
+	<body>
+		<div class="container">
+			<nav class="navbar navbar-toggleable-md" id="navig-bar">
+  				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    			<span class="navbar-toggler-icon"></span>
+  				</button>
+				<a class="navbar-brand">Navbar</a>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item active">
+							<a class="nav-link" href="#">Hello</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">World</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Color</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Android</a>
+						</li>
+					</ul>
+					</div>
+			</nav><br/>
+			<div class="row">
+				<div class="col">
+					<h1 class="display-1" id="head-block">Preview Page</h1>
+				</div>
+			</div><br/>
+			<div class="row"><div class="col"><p class="lead" id="text-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas turpis augue, efficitur at aliquet et, gravida sit amet justo. Vivamus gravida tellus ac faucibus tincidunt. Vestibulum id nisi posuere, egestas sapien et, tempus tellus. In hac habitasse platea dictumst. Aliquam erat volutpat. Quisque accumsan leo porta, imperdiet nulla tincidunt, vehicula est. Maecenas vel convallis elit. Nulla tincidunt purus at mauris imperdiet imperdiet.</p></div></div>
+			<div class="row"><div class="col"><p>Vivamus vel mauris sollicitudin, elementum erat sit amet, feugiat enim. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nam egestas nibh vestibulum sapien ornare sollicitudin. Maecenas sagittis sem sed neque tempor, ut accumsan ipsum molestie. Duis feugiat scelerisque lacus. Nullam laoreet fringilla risus, at efficitur velit. Nam condimentum tincidunt metus ac congue. Sed a urna tincidunt, porttitor justo sit amet, vestibulum massa. Morbi pulvinar est eu accumsan interdum. Integer vel orci risus. Praesent nibh metus, viverra a vulputate sit amet, rutrum in dui. Ut commodo nisl vel ligula congue, at vulputate est ultricies. Nullam sit amet vulputate nisl, vitae tincidunt lorem. Maecenas convallis nibh eleifend ex tincidunt condimentum nec at tellus. Quisque sed ultricies sapien, sit amet luctus mi.</p></div></div>
+			<script type="text/javascript">
+
+				function GetURLParameter(sParam){
+				var pageURL = window.location.search.substring(1)
+				var variableURL = pageURL.split('&');
+
+				for(var i = 0; i < variableURL.length; i++) {
+					var paramName = variableURL[i].split("=");
+					if(paramName[0] == sParam){
+			    		return paramName[1];
+			    	}
+				}
+			}
+
+			var prim = GetURLParameter('prim');
+			var dark = GetURLParameter('dark');
+			var acce = GetURLParameter('acce');
+			document.getElementById("navig-bar").style.backgroundColor = "#"+ dark;
+			document.getElementById("navig-bar").style.color = "#" + acce;
+			document.getElementById("text-block").style.color = "#" + prim;
+			document.getElementById("head-block").style.color = "#" + prim;
+			</script>
+		</div>
+	</body>
+</html>

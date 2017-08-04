@@ -2,9 +2,7 @@
 
 
 <!--
-
 There is a better way to structure this without having everything in one activity. Created this on the fly as a sample.
-
 -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -216,10 +214,11 @@ There is a better way to structure this without having everything in one activit
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
         android:padding="1dp"
+        android:onClick="ibColorsClick"
+        android:longClickable="true"
         app:layout_constraintLeft_toLeftOf="@+id/tv_primary"
         app:layout_constraintRight_toLeftOf="@+id/ib_accent"
         app:layout_constraintTop_toBottomOf="@+id/tv_accent"
-        app:srcCompat="@color/colorPrimary"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
@@ -233,11 +232,12 @@ There is a better way to structure this without having everything in one activit
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
         android:padding="1dp"
+        android:onClick="ibColorsClick"
+        android:longClickable="true"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/ib_primary"
         app:layout_constraintRight_toLeftOf="@+id/ib_accent"
         app:layout_constraintTop_toBottomOf="@+id/ib_primary"
-        app:srcCompat="@color/colorPrimaryDark"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
@@ -250,12 +250,13 @@ There is a better way to structure this without having everything in one activit
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
         android:padding="1dp"
+        android:onClick="ibColorsClick"
+        android:longClickable="true"
         app:layout_constraintBottom_toBottomOf="@+id/ib_primary"
         app:layout_constraintLeft_toRightOf="@+id/textView7"
         app:layout_constraintRight_toRightOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/tv_accent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@color/colorAccent"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
