@@ -140,8 +140,8 @@ public class PaletteFragment extends DialogFragment implements View.OnClickListe
 
     //Gets the primary color of the image
     private void extractPrimaryColor(Bitmap bitmap){
+        if(bitmap == null) return; // stops camera crash
         int defaultColor = 0x000000;
-
         Palette p = Palette.from(bitmap).generate();
 
         int VibrantColor = p.getVibrantColor(defaultColor);
@@ -245,7 +245,7 @@ public class PaletteFragment extends DialogFragment implements View.OnClickListe
 
             case R.id.b_palette_cancel:
                 activity = (PaletteFragment.OnDialogCloseListener) getActivity();
-                activity.closeDialog(primaryColor);
+                activity.closeDialog(-1);
                 PaletteFragment.this.dismiss();
                 break;
         }
