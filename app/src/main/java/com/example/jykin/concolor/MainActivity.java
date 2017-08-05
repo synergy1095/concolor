@@ -1,22 +1,33 @@
 package com.example.jykin.concolor;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.net.URL;
@@ -30,13 +41,13 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity
         implements HSV.OnDialogCloseListener, PaletteFragment.OnDialogCloseListener, View.OnLongClickListener, View.OnClickListener {
     private ActionBar actionBar;
-    private int primary, darkPrimary, accent;
     private Button buttonHSV, buttonPalette, buttonPreviewApp, buttonPreviewWeb;
+    private ConstraintLayout mainConstraintLayout;
     private ImageButton ibPrimary, ibAccent, ibDark;
     private int sPrimary, sDarkPrimary, sAccent;
+    private TextView tvPrimary, tvDark, tvAccent, tvInstruction, tvRGBLabel, tvColor;
 
-
-    private TextView et_r, et_g, et_b;
+    private EditText et_r, et_g, et_b;
     private static final String TAG = "mainactivity";
 
     @Override
@@ -44,17 +55,28 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //set to app defaults initially
+        sPrimary = ContextCompat.getColor(this, R.color.colorPrimary);
+        sDarkPrimary = ContextCompat.getColor(this, R.color.colorPrimaryDark);
+        sAccent = ContextCompat.getColor(this, R.color.colorAccent);
+
         //get ui elements
         actionBar = getSupportActionBar();
-        primary = ContextCompat.getColor(this, R.color.colorPrimary);
-        darkPrimary = ContextCompat.getColor(this, R.color.colorPrimaryDark);
-        accent = ContextCompat.getColor(this, R.color.colorAccent);
+        mainConstraintLayout = (ConstraintLayout) findViewById(R.id.main_constraint);
 
-        //argb edit text views
-        // et_a = (TextView) findViewById(R.id.et_a);
-        et_r = (TextView) findViewById(R.id.et_r);
-        et_g = (TextView) findViewById(R.id.et_g);
-        et_b = (TextView) findViewById(R.id.et_b);
+        //rgb edit text views
+        et_r = (EditText) findViewById(R.id.et_r);
+        et_g = (EditText) findViewById(R.id.et_g);
+        et_b = (EditText) findViewById(R.id.et_b);
+
+        //textviews in main activity
+        tvPrimary = (TextView) findViewById(R.id.tv_primary);
+        tvDark = (TextView) findViewById(R.id.tv_primary_dark);
+        tvAccent = (TextView) findViewById(R.id.tv_accent);
+
+        tvInstruction = (TextView) findViewById(R.id.tv_instructions);
+        tvRGBLabel = (TextView) findViewById(R.id.argbLabel);
+        tvColor = (TextView) findViewById(R.id.colorSlotsLabel);
 
         //hsv button
         buttonHSV = (Button) findViewById(R.id.HSV_Button);
@@ -73,6 +95,7 @@ public class MainActivity extends AppCompatActivity
         buttonPreviewWeb.setOnClickListener(this);
 
         //color image buttons
+        //ib have onclick set in xml to ibColorsClick
         ibPrimary = (ImageButton) findViewById(R.id.ib_primary);
         ibPrimary.setOnLongClickListener(this);
 
@@ -81,6 +104,14 @@ public class MainActivity extends AppCompatActivity
 
         ibAccent = (ImageButton) findViewById(R.id.ib_accent);
         ibAccent.setOnLongClickListener(this);
+
+        //check shared preferences for previous installation of app
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //on first run with no saved colors, colors will default to app defaults above
+        sPrimary = prefs.getInt("Primary", sPrimary);
+        sDarkPrimary = prefs.getInt("Dark", sDarkPrimary);
+        sAccent = prefs.getInt("Accent", sAccent);
+        setIBColors();
     }
 
     @SuppressWarnings("PointlessBitwiseExpression")
@@ -89,16 +120,37 @@ public class MainActivity extends AppCompatActivity
         if(color == -1) return;
         String hexValue = String.format("#%08X", (0xFFFFFFFF & color));
         setEditText(color);
-
-
-        sPrimary = color;
-        sDarkPrimary = rgbToDarkColor();
-        sAccent = colorToAccent(color);
-
-        ibPrimary.setBackgroundColor(sPrimary);
-        ibDark.setBackgroundColor(sDarkPrimary);
-        ibAccent.setBackgroundColor(sAccent);
+//
+//        sPrimary = color;
+//        sDarkPrimary = rgbToDarkColor();
+//        sAccent = colorToAccent(color);
+//
+//        ibPrimary.setBackgroundColor(sPrimary);
+//        ibDark.setBackgroundColor(sDarkPrimary);
+//        ibAccent.setBackgroundColor(sAccent);
         Log.d(TAG, hexValue);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //on stop save colors
+        saveColors();
+    }
+
+    //saves colors to shared preferences
+    private void saveColors(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("Primary", sPrimary);
+        editor.putInt("Dark", sDarkPrimary);
+        editor.putInt("Accent", sAccent);
+        editor.commit();
     }
 
     //helper method to set edit text boxes to arbg numbers
@@ -116,7 +168,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public int argbToColor(){
+    public int rgbToColor(){
         //user can only input non decimal numbers
         //try catch still required for empty edittext case
         int r, g, b;
@@ -136,17 +188,15 @@ public class MainActivity extends AppCompatActivity
         return Color.argb(255, r, g, b);
     }
 
-    public int rgbToDarkColor(){
+    public int colorToDark(int color){
         int r, g, b;
         //Darkens the color by 50%
         double darkenShade = 0.5;
-        try {
-            r = Integer.parseInt(et_r.getText().toString());
-            g = Integer.parseInt(et_g.getText().toString());
-            b = Integer.parseInt(et_b.getText().toString());
-        } catch (NumberFormatException e) {
-            r = g = b = 255;
-        }
+
+        //get each color element
+        r = Color.red(color);
+        g = Color.green(color);
+        b = Color.blue(color);
 
         r = (int) (((r > 255 || r < 0) ? 255 : r) * darkenShade);
         g = (int) (((g > 255 || g < 0) ? 255 : g) * darkenShade);
@@ -168,15 +218,23 @@ public class MainActivity extends AppCompatActivity
     //Saves color and displays on imagebutton when clicked
     public void ibColorsClick(View view){
         if (view.getId() == R.id.ib_primary) {
-            sPrimary = argbToColor();
-            ibPrimary.setBackgroundColor(sPrimary);
+            //primary color case also auto generates dark and accent colors
+            sPrimary = rgbToColor();
+            sDarkPrimary = colorToDark(sPrimary);
+            sAccent = colorToAccent(sPrimary);
         } else if (view.getId() == R.id.ib_primary_dark) {
-            sDarkPrimary = argbToColor();
-            ibDark.setBackgroundColor(sDarkPrimary);
+            sDarkPrimary = rgbToColor();
         } else if (view.getId() == R.id.ib_accent){
-            sAccent = argbToColor();
-            ibAccent.setBackgroundColor(sAccent);
+            sAccent = rgbToColor();
         }
+        setIBColors();
+    }
+
+    private void setIBColors(){
+        ibPrimary.setBackgroundColor(sPrimary);
+//        ibPrimary.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{R.attr.state}}));
+        ibDark.setBackgroundColor(sDarkPrimary);
+        ibAccent.setBackgroundColor(sAccent);
     }
 
     @Override
@@ -186,27 +244,29 @@ public class MainActivity extends AppCompatActivity
             case R.id.HSV_Button:
                 //click listener for hsv button
                 FragmentManager fmHSV = getSupportFragmentManager();
-                HSV hsv = HSV.newInstance(argbToColor());
+                HSV hsv = HSV.newInstance(rgbToColor());
                 hsv.show(fmHSV, "hsv_fragment");
                 break;
 
-            case  R.id.palette_button:
+            case R.id.palette_button:
 
                 //click listener for palette button
                 FragmentManager fmPalette = getSupportFragmentManager();
-                PaletteFragment palette = PaletteFragment.newInstance(argbToColor());
+                PaletteFragment palette = PaletteFragment.newInstance(rgbToColor());
                 palette.show(fmPalette, "palette_fragment");
                 break;
 
             case R.id.b_preview_app:
                 Log.d(TAG,"App Preview");
+                setAppColors();
                 break;
 
             case R.id.b_preview_web:
                 Log.d(TAG,"Web Preview");
-                String prim = String.format("%06X", (0xFFFFFF & argbToColor()));
-                String dark = String.format("%06X", (0xFFFFFF & rgbToDarkColor()));
-                String acce = String.format("%06X", (0xFFFFFF & colorToAccent(argbToColor())));
+                String prim = convertIntToHexColor(sPrimary);
+                String dark = convertIntToHexColor(sDarkPrimary);
+                String acce = convertIntToHexColor(sAccent);
+
                 URL url = WebPreview.makeURL(prim,dark,acce);
                 Log.d(TAG,url.toString());
 
@@ -217,6 +277,10 @@ public class MainActivity extends AppCompatActivity
                 break;
 
         }
+    }
+
+    public String convertIntToHexColor(int color){
+        return String.format("%06X", (0xFFFFFF & color));
     }
 
     //Long Click on imagebutton displays color rgb currently in it
@@ -230,5 +294,75 @@ public class MainActivity extends AppCompatActivity
             setEditText(sAccent);
         }
         return true;
+    }
+
+    private void setAppColors(){
+        //set button colors to contrasting colors
+        setButtonColor(sAccent);
+        setButtonTextColor(sPrimary);
+        //set actionbar colors to contrasting colors
+        setActionBarColor(sPrimary);
+        setActionBarTextColor(sAccent);
+        //set background and statusbar to same color
+        setBackgroundColor(sDarkPrimary);
+        setStatusBarColor(sDarkPrimary);
+        //set general text color to contrasting color from background
+        setTextColor(sAccent);
+    }
+
+    private void setButtonColor(int color){
+        buttonPreviewWeb.setBackgroundColor(color);
+        buttonPreviewApp.setBackgroundColor(color);
+        buttonHSV.setBackgroundColor(color);
+        buttonPalette.setBackgroundColor(color);
+    }
+
+    private void setButtonTextColor(int color){
+        buttonPreviewWeb.setTextColor(color);
+        buttonPreviewApp.setTextColor(color);
+        buttonHSV.setTextColor(color);
+        buttonPalette.setTextColor(color);
+    }
+
+    private void setActionBarColor(int color){
+        actionBar.setBackgroundDrawable(new ColorDrawable(color));
+    }
+
+    private void setActionBarTextColor(int color){
+        //fromHtml is only deprecated to hint at newer version for higher api versions
+        //not actually deprecated
+        actionBar.setTitle(Html.fromHtml("<font color='#" + convertIntToHexColor(color) + "'>Color Picker</font>"));
+    }
+
+    private void setBackgroundColor(int color){
+        mainConstraintLayout.setBackgroundColor(color);
+    }
+
+    private void setTextColor(int color){
+        //set hint and text colors for edit text
+        et_r.setHintTextColor(color);
+        et_g.setHintTextColor(color);
+        et_b.setHintTextColor(color);
+
+        et_r.setTextColor(color);
+        et_g.setTextColor(color);
+        et_b.setTextColor(color);
+
+        //set colors for text views
+        tvColor.setTextColor(color);
+        tvRGBLabel.setTextColor(color);
+        tvInstruction.setTextColor(color);
+        tvAccent.setTextColor(color);
+        tvDark.setTextColor(color);
+        tvPrimary.setTextColor(color);
+    }
+
+    private void setStatusBarColor(int color){
+        Window window = this.getWindow();
+
+        //flags needed to be set before changing status bar color
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(color);
     }
 }
