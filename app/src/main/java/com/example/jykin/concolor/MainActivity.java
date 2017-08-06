@@ -7,8 +7,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
+<<<<<<< HEAD
 import android.os.Environment;
 import android.preference.PreferenceManager;
+=======
+>>>>>>> e1621fb642ffcb81bbf0e047716c6939eacc29e6
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
@@ -27,9 +30,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+<<<<<<< HEAD
 import org.w3c.dom.Text;
 
 import java.io.File;
+=======
+>>>>>>> e1621fb642ffcb81bbf0e047716c6939eacc29e6
 import java.net.URL;
 
 
@@ -136,12 +142,18 @@ public class MainActivity extends AppCompatActivity
         super.onStart();
     }
 
+<<<<<<< HEAD
     @Override
     protected void onStop() {
         super.onStop();
         //on stop save colors
         saveColors();
     }
+=======
+        sPrimary = color;
+        sDarkPrimary = rgbToDarkColor();
+        sAccent = GenerateColors.colorToAccent(color);
+>>>>>>> e1621fb642ffcb81bbf0e047716c6939eacc29e6
 
     //saves colors to shared preferences
     private void saveColors(){
@@ -205,16 +217,6 @@ public class MainActivity extends AppCompatActivity
         return Color.rgb(r, g, b);
     }
 
-    //Changes the hue of the color to get accent. Currently does not work if primary is white or black
-    public int colorToAccent(int color) {
-        float[] hsv = new float[3];
-        Color.RGBToHSV(Color.red(color), Color.green(color),
-                Color.blue(color), hsv);
-        hsv[0] = (hsv[0] + 180) % 360;
-
-        return Color.HSVToColor(hsv);
-    }
-
     //Saves color and displays on imagebutton when clicked
     public void ibColorsClick(View view){
         if (view.getId() == R.id.ib_primary) {
@@ -267,6 +269,12 @@ public class MainActivity extends AppCompatActivity
                 String dark = convertIntToHexColor(sDarkPrimary);
                 String acce = convertIntToHexColor(sAccent);
 
+<<<<<<< HEAD
+=======
+                String prim = String.format("%06X", (0xFFFFFF & argbToColor()));
+                String dark = String.format("%06X", (0xFFFFFF & rgbToDarkColor()));
+                String acce = String.format("%06X", (0xFFFFFF & GenerateColors.colorToAccent(argbToColor())));
+>>>>>>> e1621fb642ffcb81bbf0e047716c6939eacc29e6
                 URL url = WebPreview.makeURL(prim,dark,acce);
                 Log.d(TAG,url.toString());
 
@@ -295,6 +303,7 @@ public class MainActivity extends AppCompatActivity
         }
         return true;
     }
+<<<<<<< HEAD
 
     private void setAppColors(){
         //set button colors to contrasting colors
@@ -366,3 +375,6 @@ public class MainActivity extends AppCompatActivity
         window.setStatusBarColor(color);
     }
 }
+=======
+}
+>>>>>>> e1621fb642ffcb81bbf0e047716c6939eacc29e6
